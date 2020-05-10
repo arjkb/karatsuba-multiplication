@@ -9,24 +9,21 @@ def recursiveMultiply(x, y):
     # So, if we store the length as max of the available two lengths,
     # then further down the line when we split the numbers
     # the math automatically works out
-    nx = max(len(xs), len(ys))
-    ny = max(len(xs), len(ys))
-    # print("(nx, ny) = ({}, {})".format(nx, ny))
+    n = max(len(xs), len(ys)) # max of number of digits between either number
 
     # base case (digits length is 1)
-    if nx == 1 or ny == 1:
+    if n == 1:
         print("Base case product:", int(x) * int(y))
         return int(x) * int(y)
 
     # recursive case:
-    xh = int(nx//2) # the power of 10 to which the digit-group must be separated by
-    yh = int(ny//2) # (same as above)
+    p = int(n//2) # the power of 10 to which the digit-group must be separated by
 
     # compute A, B, C, D
-    a = x//(10**xh)
-    b = x % (10**xh)
-    c = y//(10**yh)
-    d = y % (10**yh)
+    a = x//(10**p)
+    b = x % (10**p)
+    c = y//(10**p)
+    d = y % (10**p)
 
     ac = recursiveMultiply(a, c)
     bd = recursiveMultiply(b, d)
@@ -35,13 +32,11 @@ def recursiveMultiply(x, y):
 
     print("a={}, b={}, c={}, d={}".format(a, b, c, d))
     print("ac\t\t= {}\nbd\t\t= {}\n(a+b)*(c+d)\t= {}\n(ad+bc)\t\t= {}".format(ac, bd, a_b__c_d, ad_plus_bc))
-    print("nx={}, xh={}".format(nx, xh))
-    # product = (10**nx)*ac + (10**xh)*(ad_plus_bc) + bd
-    product = (10**(xh+yh))*ac + (10**xh)*(ad_plus_bc) + bd
-    attrs = [] if ((product - (x*y)) != 0) else []
+    # print("n={}, p={}, yh={}".format(n, p, yh))
+    # product = (10**n)*ac + (10**p)*(ad_plus_bc) + bd
+    product = (10**(p*2))*ac + (10**p)*(ad_plus_bc) + bd
     color = 'red' if ((product - (x*y)) != 0) else 'green'
-    # print((product - (x*y)), attrs)
-    print(colored("Product of {} * {} = {}; Act={}, Error={}".format(x, y, product, x * y, product - (x*y)), color, attrs=attrs))
+    print(colored("Product of {} * {} = {}; Act={}, Error={}".format(x, y, product, x * y, product - (x*y)), color))
     return product
 
 def main():
