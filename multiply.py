@@ -42,14 +42,14 @@ def recursiveMultiply(x, y):
     # print("ac\t\t= {}\nbd\t\t= {}\n(a+b)*(c+d)\t= {}\n(ad+bc)\t\t= {}".format(ac, bd, a_b__c_d, ad_plus_bc))
 
     product = (10**(p*2))*ac + (10**p)*(ad_plus_bc) + bd
-    print(getColoredOutput(x, y, product))
+    # print(getColoredOutput(x, y, product))
     return product
 
 def main():
     num1 = input().strip()
     num2 = input().strip()
-    print("{} {}".format(num1, num2))
-    print("Product:", recursiveMultiply(int(num1), int(num2)))
+    # print("{} {}".format(num1, num2))
+    print(recursiveMultiply(int(num1), int(num2)))
 
 if __name__ == "__main__":
     main()
