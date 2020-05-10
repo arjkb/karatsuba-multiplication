@@ -2,12 +2,16 @@ from termcolor import colored
 
 def recursiveMultiply(x, y):
     print("recursiveMultiply({}, {})".format(x, y))
+    # pad = len(str(x)) - len(str(y))
     xs, ys = str(x), str(y)
-    nx = len(xs)
-    ny = len(ys)
-    # print("(nx, ny) = ({}, {})".format(nx, ny))
 
-    # for starters just deal with the situation where nx == ny, and they're both a power of 2
+    # padding... because this whole thing works iff length of both numbers are the same
+    # So, if we store the length as max of the available two lengths,
+    # then further down the line when we split the numbers
+    # the math automatically works out
+    nx = max(len(xs), len(ys))
+    ny = max(len(xs), len(ys))
+    # print("(nx, ny) = ({}, {})".format(nx, ny))
 
     # base case (digits length is 1)
     if nx == 1 or ny == 1:
@@ -15,18 +19,10 @@ def recursiveMultiply(x, y):
         return int(x) * int(y)
 
     # recursive case:
+    xh, xg = int((nx//2)), int(nx - (nx//2)) # the power of 10 to which the digit-group must be separated by
+    yh, yg = int(ny//2), int(ny - (ny//2)) # (same as above)
 
     # compute A, B, C, D
-    xh, xg = int((nx//2)), int(nx - (nx//2)) # the power of 10 to which the digit-group must be separated by
-    yh, yg = int(ny//2), int(ny - ny//2) # (same as above)
-    # print("(xh, xg) = ({}, {})".format(xh, xg))
-    # print("(yh, yg) = ({}, {})".format(yh, yg))
-    
-    # a = int(xs[:xh])
-    # b = int(xs[xh:])
-    # c = int(ys[:yh])
-    # d = int(ys[yh:])
-
     a = x//(10**xh)
     b = x % (10**xh)
     c = y//(10**yh)
@@ -48,16 +44,12 @@ def recursiveMultiply(x, y):
     print(colored("Product of {} * {} = {}; Act={}, Error={}".format(x, y, product, x * y, product - (x*y)), color, attrs=attrs))
     return product
 
-
 def main():
     num1 = input().strip()
     num2 = input().strip()
-
     print("{} {}".format(num1, num2))
 
-    result = recursiveMultiply(int(num1), int(num2))
-    print("Product:", result)
-
+    print("Product:", recursiveMultiply(int(num1), int(num2)))
 
 if __name__ == "__main__":
     main()
