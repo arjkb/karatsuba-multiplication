@@ -19,8 +19,8 @@ def recursiveMultiply(x, y):
         return int(x) * int(y)
 
     # recursive case:
-    xh, xg = int((nx//2)), int(nx - (nx//2)) # the power of 10 to which the digit-group must be separated by
-    yh, yg = int(ny//2), int(ny - (ny//2)) # (same as above)
+    xh = int(nx//2) # the power of 10 to which the digit-group must be separated by
+    yh = int(ny//2) # (same as above)
 
     # compute A, B, C, D
     a = x//(10**xh)
