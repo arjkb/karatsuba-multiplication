@@ -1,19 +1,26 @@
+# Karatsuba Multiplication
+
+# Arjun Krishna Babu
+# 10 May 2020
+# Python 3.8.2
+
 from termcolor import colored
 
+def getColoredOutput(x, y, product):
+    color = 'red' if ((product - (x*y)) != 0) else 'green'
+    return colored("Product of {} * {} = {}; Act={}, Error={}".format(x, y, product, x * y, product - (x*y)), color)
+
 def recursiveMultiply(x, y):
-    print("recursiveMultiply({}, {})".format(x, y))
-    # pad = len(str(x)) - len(str(y))
     xs, ys = str(x), str(y)
 
-    # padding... because this whole thing works iff length of both numbers are the same
-    # So, if we store the length as max of the available two lengths,
+    # padding... because this works iff length of both numbers are the same
+    # So, if we store the length as max of the available two lengths
     # then further down the line when we split the numbers
-    # the math automatically works out
-    n = max(len(xs), len(ys)) # max of number of digits between either number
+    # the math automatically works out.
+    n = max(len(xs), len(ys)) # max of number of digits between either numbers
 
-    # base case (digits length is 1)
+    # base case (digit length is 1):
     if n == 1:
-        print("Base case product:", int(x) * int(y))
         return int(x) * int(y)
 
     # recursive case:
@@ -30,20 +37,18 @@ def recursiveMultiply(x, y):
     a_b__c_d = recursiveMultiply(a + b, c + d)
     ad_plus_bc = a_b__c_d - ac - bd     # Gauss' Trick
 
-    print("a={}, b={}, c={}, d={}".format(a, b, c, d))
-    print("ac\t\t= {}\nbd\t\t= {}\n(a+b)*(c+d)\t= {}\n(ad+bc)\t\t= {}".format(ac, bd, a_b__c_d, ad_plus_bc))
-    # print("n={}, p={}, yh={}".format(n, p, yh))
-    # product = (10**n)*ac + (10**p)*(ad_plus_bc) + bd
+    # useful for debugging
+    # print("a={}, b={}, c={}, d={}".format(a, b, c, d))
+    # print("ac\t\t= {}\nbd\t\t= {}\n(a+b)*(c+d)\t= {}\n(ad+bc)\t\t= {}".format(ac, bd, a_b__c_d, ad_plus_bc))
+
     product = (10**(p*2))*ac + (10**p)*(ad_plus_bc) + bd
-    color = 'red' if ((product - (x*y)) != 0) else 'green'
-    print(colored("Product of {} * {} = {}; Act={}, Error={}".format(x, y, product, x * y, product - (x*y)), color))
+    print(getColoredOutput(x, y, product))
     return product
 
 def main():
     num1 = input().strip()
     num2 = input().strip()
     print("{} {}".format(num1, num2))
-
     print("Product:", recursiveMultiply(int(num1), int(num2)))
 
 if __name__ == "__main__":
