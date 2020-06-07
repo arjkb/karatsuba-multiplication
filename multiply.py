@@ -1,4 +1,4 @@
-# Karatsuba Multiplication
+# Karatsuba Multiplication algorithm
 
 # Arjun Krishna Babu
 # 10 May 2020
